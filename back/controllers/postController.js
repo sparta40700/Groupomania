@@ -5,7 +5,7 @@ const fileSystem = require("fs");
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 
-module.exports.readPost = (req, res) => {
+module.exports.readPosts = (req, res) => {
   postModel
     .find((err, docs) => {
       if (!error) res.send(docs);
@@ -14,43 +14,42 @@ module.exports.readPost = (req, res) => {
     .sort({ createdAt: -1 });
 };
 
-module.exports.createPost = (req, res) => {
+module.exports.createPost = async (req, res) => {
   let fileName;
 
   if (req.file !== null) {
-      try {
-    if (
-      !req.file.detectedMimeType !== "image/jpg" &&
-      !req.file.detectedMimeType !== "image/jpeg" &&
-      !req.file.detectedMimeType !== "image/png"
-    )
-      throw new Error("Only jpg, jpeg and png files are allowed");
+    try {
+      if (
+        !req.file.detectedMimeType !== "image/jpg" &&
+        !req.file.detectedMimeType !== "image/jpeg" &&
+        !req.file.detectedMimeType !== "image/png"
+      )
+        throw new Error("Only jpg, jpeg and png files are allowed");
 
-    if (req.file.size > 5000000) throw new Error("File size is too big");
-  } catch (error) {
-    res.status(400).json({
-      message: error.message,
-    });
-  }
-  const fileName = req.body.posterId + Date.now() + "jpg";
+      if (req.file.size > 5000000) throw new Error("File size is too big");
+    } catch (error) {
+      res.status(400).json({
+        message: error.message,
+      });
+    }
+    const fileName = req.body.posterId + Date.now() + "jpg";
 
     await pipeline(
-    req.file.stream,
-    fs.createWriteStream(
-      `${__dirname}/../client/public/uploads/posts/${fileName}`
-    )
-  );
+      req.file.stream,
+      fs.createWriteStream(
+        `${__dirname}/../client/public/uploads/posts/${fileName}`
+      )
+    );
   }
-const newPost = new postModel({
-  posterId: req.body.posterId,
-  posterPseudo: req.body.posterPseudo,
-  Text: req.body.Text,
-  picture: req.file !== null ? "./uploads/posts/" + fileName : "",
-  video: req.body.video,
-  likers: [],
-  comments: [],
-});
-
+  const newPost = new postModel({
+    posterId: req.body.posterId,
+    posterPseudo: req.body.posterPseudo,
+    Text: req.body.Text,
+    picture: req.file !== null ? "./uploads/posts/" + fileName : "",
+    video: req.body.video,
+    likers: [],
+    comments: [],
+  });
 
   const post = new postModel({
     posterId: req.body.posterId,
@@ -152,7 +151,7 @@ module.exports.commentPost = (req, res) => {
   }
 };
 
-module.exports.editCommentPost = (req, res) => {
+module.exports.editComment = (req, res) => {
   if (!ObjectId.isValid(req.params.id))
     return res.status(400).send("id unknown :" + req.params.id);
   try {
@@ -175,7 +174,7 @@ module.exports.editCommentPost = (req, res) => {
   }
 };
 
-module.exports.deleteCommentPost = (req, res) => {
+module.exports.deleteComment = (req, res) => {
   if (!ObjectId.isValid(req.params.id))
     return res.status(400).send("id unknown :" + req.params.id);
 

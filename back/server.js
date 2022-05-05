@@ -1,10 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const requireAuth = require("./middleware/auth.middleware");
 const userRoutes = require("./routes/user.routes.js");
 const postRoutes = require("./routes/post.routes.js");
 const { path } = require("express/lib/application");
-require("dotenv").config({ path: "./.env" });
+require("dotenv").config();
 require("./config/db");
 const { checkUser } = require("./middleware/auth.middleware");
 const cors = require("cors");
@@ -34,9 +35,11 @@ app.get("/jwtid", requireAuth, (req, res) => {
 
 //routes
 app.use("/api/user", userRoutes);
-app.use("/api/post", postRoutes);
+//app.use("/api/post", postRoutes);
 
 //serveur
-app.listen(process.env.PORT, () => {
-  console.log("Server started on port " + process.env.PORT);
+console.log(process.env.PORT);
+//console.log(process.env);
+app.listen(3000, () => {
+  console.log("Server started on port " + "3000");
 });
