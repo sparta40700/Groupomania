@@ -6,8 +6,7 @@ const userRoutes = require("./routes/user.routes.js");
 const postRoutes = require("./routes/post.routes.js");
 const { path } = require("express/lib/application");
 require("dotenv").config();
-require("./config/db");
-const { checkUser } = require("./middleware/auth.middleware");
+//const { checkUser } = require("./middleware/auth.middleware");
 const cors = require("cors");
 
 const app = express();
@@ -28,18 +27,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //jwt
-app.get("*", checkUser);
-app.get("/jwtid", requireAuth, (req, res) => {
+//app.get("*", checkUser);
+/*app.get("/jwtid", requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id);
-});
+});*/
 
 //routes
 app.use("/api/user", userRoutes);
-//app.use("/api/post", postRoutes);
+app.use("/api/post", postRoutes);
 
 //serveur
 console.log(process.env.PORT);
 //console.log(process.env);
-app.listen(3000, () => {
-  console.log("Server started on port " + "3000");
+app.listen(process.env.PORT, () => {
+  console.log("Server started on port " + "8000");
 });

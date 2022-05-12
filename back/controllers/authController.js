@@ -22,12 +22,6 @@ exports.signIn = async (req, res) => {
   }
 };
 
-exports.logout = (req, res, next) => {
-  res.cookie("jwt", "", { httpOnly: true, maxAge: 0 });
-  res.redirect("/");
-  console.log("logout");
-};
-
 exports.signUp = async (req, res) => {
   console.log(req.body);
   const { pseudo, email, password } = req.body;

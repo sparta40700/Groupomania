@@ -24,7 +24,7 @@ exports.userInfo = async (req, res) => {
   res.status(200).json(user);
 };
 
-exports.updateUser = async (req, res) => {
+exports.updateUser = (req, res) => {
   if (!ObjectID.isValid(req.params.id)) {
     return res.status(400).json({ message: "Invalid id" });
     /*try {
@@ -43,8 +43,7 @@ exports.updateUser = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
   } else {
-    return res.status(400).json({ message: "Invalid id" });
-  */
+    return res.status(400).json({ message: "Invalid id" });*/
   }
 };
 
