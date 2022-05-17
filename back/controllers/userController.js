@@ -1,5 +1,7 @@
 const { remove } = require("../models/user.model");
-const userModel = require("../models/user.model");
+const db = require("../models/index");
+const userModel = db.User;
+//const userModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 
 exports.getAllUsers = async (req, res) => {
