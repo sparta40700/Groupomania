@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import SignUp from "./signup";
-import SignIn from "./signin";
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 
-const log = (props) => {
-  const [SignUpModal, setSignUpModal] = useState();
-  const [SignInModal, setSignInModal] = useState();
+const Log = (props) => {
+  const [signUpModal, setSignUpModal] = useState(props.SignUp);
+  const [signInModal, setSignInModal] = useState(props.SignIn);
   /* const handleLogin = (e) => {
     setSignUpModal(false);
     setSignInModal(true);
@@ -27,7 +27,7 @@ const log = (props) => {
           <li
             onClick={handleModals}
             id="register"
-            className={SignUpModal ? "active-btn" : null}
+            className={signUpModal ? "active-btn" : null}
           >
             S'inscrire
           </li>
@@ -39,11 +39,11 @@ const log = (props) => {
             Se connecter
           </li>
         </ul>
-        {SignUpModal && <SignUp />}
-        {SignInModal && <SignIn />}
+        {signUpModal && <SignUp />}
+        {signInModal && <SignIn />}
       </div>
     </div>
   );
 };
 
-export default log;
+export default Log;

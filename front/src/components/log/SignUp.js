@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   return (
@@ -18,7 +19,7 @@ const SignUp = () => {
             <input type="submit" value="S'inscrire" />
           </li>
           <li>
-            <a href="#">Mot de passe oublié ?</a>
+            <Link to="/"> mot de passe oublié</Link>
           </li>
         </ul>
       </div>

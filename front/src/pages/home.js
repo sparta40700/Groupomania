@@ -1,4 +1,5 @@
 import React from "react";
+import Log from "../components/log/Log";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -18,6 +19,7 @@ const Home = () => {
         <div className="home_container_img">
           <img src="../front/public/img/icon-above-font.png" alt="profil" />
         </div>
+        <Log SignIn={false} SignUp={true} />
       </div>
 
       <Footer />
