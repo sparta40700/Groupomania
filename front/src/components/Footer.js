@@ -1,6 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default function Footer() {
-  return <footer></footer>;
+  return (
+    <div className="footer_container">
+      <Footer />
+    </div>
+  );
 }
